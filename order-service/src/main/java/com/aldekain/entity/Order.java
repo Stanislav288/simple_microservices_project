@@ -15,6 +15,8 @@ public class Order {
     @Column(name = "order_id", nullable = false)
     private UUID orderId;
 
+    private String orderNumber;
+
     @OneToMany(cascade = CascadeType.ALL)
-    private List<OrderItem> orderLineItemsList;
+    private List<OrderItem> orderItemsList;
 }

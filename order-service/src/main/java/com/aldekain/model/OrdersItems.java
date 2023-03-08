@@ -1,11 +1,11 @@
-package com.aldekain.dto;
+package com.aldekain.model;
 
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
-public class OrdersItemsDto {
+public class OrdersItems {
     private Long id;
     private String skuCode;
     private BigDecimal price;

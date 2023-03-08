@@ -1,4 +1,4 @@
-package com.aldekain.dto;
+package com.aldekain.model;
 
 import lombok.Builder;
 import lombok.Data;

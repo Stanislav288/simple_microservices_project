@@ -1,4 +1,4 @@
-package com.aldekain.dto;
+package com.aldekain.model;
 
 import lombok.Data;
 
@@ -6,5 +6,5 @@ import java.util.List;
 
 @Data
 public class OrderRequest {
-    private List<OrdersItemsDto> orderLineItemsDtoList;
+    private List<OrdersItems> orderLineItemsDtoList;
 }
