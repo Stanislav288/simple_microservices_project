@@ -1,0 +1,12 @@
+com\aldekain\orderservice\model\InventoryResponse$InventoryResponseBuilder.class
+com\aldekain\orderservice\model\OrdersItems.class
+com\aldekain\orderservice\repository\OrderRepository.class
+com\aldekain\orderservice\controller\OrderController.class
+com\aldekain\orderservice\configuration\WebClientConfig.class
+com\aldekain\orderservice\model\OrderRequest.class
+com\aldekain\orderservice\Main.class
+com\aldekain\orderservice\model\InventoryResponse.class
+com\aldekain\orderservice\event\OrderPlacedEvent.class
+com\aldekain\orderservice\entity\OrderItem.class
+com\aldekain\orderservice\entity\Order.class
+com\aldekain\orderservice\service\OrderService.class

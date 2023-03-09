@@ -1,0 +1,11 @@
+C:\Users\Stanislav\IdeaProjects\simple_project_microservices\order-service\src\main\java\com\aldekain\orderservice\controller\OrderController.java
+C:\Users\Stanislav\IdeaProjects\simple_project_microservices\order-service\src\main\java\com\aldekain\orderservice\entity\OrderItem.java
+C:\Users\Stanislav\IdeaProjects\simple_project_microservices\order-service\src\main\java\com\aldekain\orderservice\Main.java
+C:\Users\Stanislav\IdeaProjects\simple_project_microservices\order-service\src\main\java\com\aldekain\orderservice\repository\OrderRepository.java
+C:\Users\Stanislav\IdeaProjects\simple_project_microservices\order-service\src\main\java\com\aldekain\orderservice\model\OrderRequest.java
+C:\Users\Stanislav\IdeaProjects\simple_project_microservices\order-service\src\main\java\com\aldekain\orderservice\model\OrdersItems.java
+C:\Users\Stanislav\IdeaProjects\simple_project_microservices\order-service\src\main\java\com\aldekain\orderservice\configuration\WebClientConfig.java
+C:\Users\Stanislav\IdeaProjects\simple_project_microservices\order-service\src\main\java\com\aldekain\orderservice\model\InventoryResponse.java
+C:\Users\Stanislav\IdeaProjects\simple_project_microservices\order-service\src\main\java\com\aldekain\orderservice\entity\Order.java
+C:\Users\Stanislav\IdeaProjects\simple_project_microservices\order-service\src\main\java\com\aldekain\orderservice\service\OrderService.java
+C:\Users\Stanislav\IdeaProjects\simple_project_microservices\order-service\src\main\java\com\aldekain\orderservice\event\OrderPlacedEvent.java

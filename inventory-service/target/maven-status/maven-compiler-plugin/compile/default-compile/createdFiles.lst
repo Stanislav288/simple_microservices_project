@@ -1,0 +1,7 @@
+com\aldekain\inventoryservice\controller\InventoryController.class
+com\aldekain\inventoryservice\model\InventoryResponse.class
+com\aldekain\inventoryservice\service\InventoryService.class
+com\aldekain\inventoryservice\repository\InventoryRepository.class
+com\aldekain\inventoryservice\entity\Inventory.class
+com\aldekain\inventoryservice\Main.class
+com\aldekain\inventoryservice\model\InventoryResponse$InventoryResponseBuilder.class
