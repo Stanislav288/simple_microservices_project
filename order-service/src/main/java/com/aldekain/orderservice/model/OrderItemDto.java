@@ -1,12 +1,17 @@
 package com.aldekain.orderservice.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
-public class OrdersItems {
-    private Long id;
+@AllArgsConstructor
+@NoArgsConstructor
+public class OrderItemDto {
+    private UUID id;
     private String skuCode;
     private BigDecimal price;
     private Integer quantity;

@@ -1,9 +1,0 @@
-com\aldekain\productservice\model\ProductResponse.class
-com\aldekain\productservice\model\ProductResponse$ProductResponseBuilder.class
-com\aldekain\productservice\model\ProductRequest.class
-com\aldekain\productservice\entity\Product$ProductBuilder.class
-com\aldekain\productservice\repository\ProductRepository.class
-com\aldekain\productservice\entity\Product.class
-com\aldekain\productservice\Main.class
-com\aldekain\productservice\service\ProductService.class
-com\aldekain\productservice\controller\ProductController.class

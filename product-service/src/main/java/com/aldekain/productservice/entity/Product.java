@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "products")
@@ -20,7 +21,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "product_id", nullable = false)
-    private String id;
+    private UUID id;
     private String name;
     private String description;
     private BigDecimal price;

@@ -4,8 +4,7 @@ package com.aldekain.orderservice.service;
 //import brave.Tracer;
 import com.aldekain.orderservice.event.OrderPlacedEvent;
 import com.aldekain.orderservice.model.InventoryResponse;
-import com.aldekain.orderservice.model.OrdersItems;
-import com.aldekain.orderservice.model.OrderRequest;
+import com.aldekain.orderservice.model.OrderItemDto;
 import com.aldekain.orderservice.entity.Order;
 import com.aldekain.orderservice.entity.OrderItem;
 import com.aldekain.orderservice.repository.OrderRepository;
@@ -29,16 +28,15 @@ public class OrderService {
     //private final Tracer tracer;
     private final KafkaTemplate<String, OrderPlacedEvent> kafkaTemplate;
 
-    public String placeOrder(OrderRequest orderRequest) {
+    public String placeOrder(List<OrderItemDto> orderItemList) {
         Order order = new Order();
-        order.setOrderNumber(UUID.randomUUID().toString());
 
-        List<OrderItem> orderLineItems = orderRequest.getOrderLineItemsDtoList()
+        List<OrderItem> orderItems = orderItemList
                 .stream()
                 .map(this::mapToDto)
                 .toList();
 
-        order.setOrderItemsList(orderLineItems);
+        order.setOrderItemsList(orderItems);
 
         List<String> skuCodes = order.getOrderItemsList().stream()
                 .map(OrderItem::getSkuCode)
@@ -52,7 +50,7 @@ public class OrderService {
             // Call Inventory Service, and place order if product is in
             // stock
             InventoryResponse[] inventoryResponseArray = webClientBuilder.build().get()
-                    .uri("http://inventory-service/api/inventory",
+                    .uri("http://inventory-service:49184/api/inventory",
                             uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
                     .retrieve()
                     .bodyToMono(InventoryResponse[].class)
@@ -63,7 +61,7 @@ public class OrderService {
 
             if (allProductsInStock) {
                 orderRepository.save(order);
-                kafkaTemplate.send("notificationTopic", new OrderPlacedEvent(order.getOrderNumber()));
+               // kafkaTemplate.send("notificationTopic", new OrderPlacedEvent(order.getOrderNumber()));
                 return "Order Placed Successfully";
             } else {
                 throw new IllegalArgumentException("Product is not in stock, please try again later");
@@ -73,11 +71,12 @@ public class OrderService {
 //        }
     }
 
-    private OrderItem mapToDto(OrdersItems orderLineItemsDto) {
-        OrderItem orderLineItems = new OrderItem();
-        orderLineItems.setPrice(orderLineItemsDto.getPrice());
-        orderLineItems.setQuantity(orderLineItemsDto.getQuantity());
-        orderLineItems.setSkuCode(orderLineItemsDto.getSkuCode());
-        return orderLineItems;
+    private OrderItem mapToDto(OrderItemDto orderItemDto) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setOrderItemId(orderItem.getOrderItemId());
+        orderItem.setPrice(orderItemDto.getPrice());
+        orderItem.setQuantity(orderItemDto.getQuantity());
+        orderItem.setSkuCode(orderItemDto.getSkuCode());
+        return orderItem;
     }
 }
