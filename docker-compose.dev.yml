@@ -1,0 +1,79 @@
+version : '3.8'
+services :
+  inventory-service :
+    container_name : inventory-service
+    build :
+      context : ./inventory-service/
+      dockerfile : /Dockerfile
+    environment :
+      - DATABASE_HOSTNAME=inventory-mariadb
+    depends_on :
+      - inventory-mariadb
+
+  order-service :
+    container_name : order-service
+    build :
+      context : ./order-service/
+      dockerfile : /Dockerfile
+    environment :
+      - DATABASE_HOSTNAME=order-mariadb
+    restart: always
+    depends_on :
+      - order-mariadb
+
+  product-service :
+    container_name : product-service
+    build :
+      context : ./product-service/
+      dockerfile : /Dockerfile
+    environment :
+      - DATABASE_HOSTNAME=product-mariadb
+#    ports :
+#      - "8000:8000"
+#      - "8080:8080"
+    depends_on :
+       - product-mariadb
+#         condition: service_started
+
+  order-mariadb:
+    container_name: order_mariadb
+    image: mariadb:latest
+    environment :
+      - MYSQL_TCP_PORT=3307
+      - MARIADB_ROOT_PASSWORD=test
+    ports:
+      - "3307:3307"
+    expose:
+      - "3307"
+    volumes:
+      - ./order-mariadb-data:/var/lib/mysql
+
+  inventory-mariadb :
+    container_name : inventory-mariadb
+    image : mariadb:latest
+    environment :
+      - MYSQL_TCP_PORT=3306
+      - MARIADB_ROOT_PASSWORD=test
+    ports :
+      - "3306:3306"
+    expose :
+      - "3306"
+    volumes :
+      - ./inventory-mariadb-data:/var/lib/mysql
+
+  product-mariadb :
+    container_name : product-mariadb
+    image : mariadb:latest
+    environment :
+      - MYSQL_TCP_PORT=3308
+      - MARIADB_ROOT_PASSWORD=test
+    ports :
+      - "3308:3308"
+    expose :
+      - "3308"
+    volumes :
+      - ./product-mariadb-data:/var/lib/mysql
+
+#networks:
+#  order-mariadb-network:
+#    driver: bridge

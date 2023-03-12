@@ -11,6 +11,10 @@
 
     <artifactId>product-service</artifactId>
 
+    <properties>
+        <start-class>com.aldekain.productservice.Main</start-class>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
