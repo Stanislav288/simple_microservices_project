@@ -25,7 +25,6 @@ public class OrderController {
     @TimeLimiter(name = "inventory")
     @Retry(name = "inventory")
     public CompletableFuture<String> placeOrder(@RequestBody List<OrderItemDto> orderItemList) {
-        System.out.println("SNN");
         return CompletableFuture.supplyAsync(() -> orderService.placeOrder(orderItemList));
     }
 

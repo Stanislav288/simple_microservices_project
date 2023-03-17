@@ -15,3 +15,6 @@ docker run --detach --name mariadb_3 --env MARIADB_ROOT_PASSWORD=test --env MYSQ
 | Endpoint                         | HTTP Method | Body |
 |----------------------------------|:------------|------|
 | http://localhost:59490/api/order | Post        |      |
+
+RabbitMQ
+https://github.com/societe-generale/rabbitmq-advanced-spring-boot-starter
