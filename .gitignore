@@ -42,3 +42,4 @@ out/
 /inventory-mariadb-data/
 /product-mariadb-data/
 /order-mariadb-data/
+/notification-service/

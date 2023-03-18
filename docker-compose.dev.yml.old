@@ -1,0 +1,97 @@
+version : '3.8'
+
+services :
+  inventory-service :
+    container_name : ${INVENTORY_SERVICE_NAME}
+    build :
+      context : ./${INVENTORY_SERVICE_NAME}/
+      dockerfile : /Dockerfile
+    environment :
+      - DATABASE_HOSTNAME=${INVENTORY_SERVICE_DB_NAME}
+      - INVENTORY_SERVICE_SERVER_PORT=${INVENTORY_SERVICE_SERVER_PORT}
+    ports :
+      - ${INVENTORY_SERVICE_SERVER_PORT}:${INVENTORY_SERVICE_SERVER_PORT}
+    depends_on :
+      - ${INVENTORY_SERVICE_DB_NAME}
+
+  order-service :
+    container_name : ${ORDER_SERVICE_NAME}
+    build :
+      context : ./${ORDER_SERVICE_NAME}/
+      dockerfile : /Dockerfile
+    environment :
+      - DATABASE_HOSTNAME=${ORDER_SERVICE_DB_NAME}
+      - RABBITMQ_HOSTNAME=${RABBITMQ_SERVICE_NAME}
+      - ORDER_SERVICE_SERVER_PORT=${ORDER_SERVICE_SERVER_PORT}
+    ports :
+      - ${ORDER_SERVICE_SERVER_PORT}:${ORDER_SERVICE_SERVER_PORT}
+    restart: always
+    depends_on :
+      - ${ORDER_SERVICE_DB_NAME}
+      - ${RABBITMQ_SERVICE_NAME}
+
+  product-service :
+    container_name : ${PRODUCT_SERVICE_NAME}
+    build :
+#      args :
+#        - SERVER_PORT=${PRODUCT_SERVICE_SERVER_PORT:-37527}
+      context : ./${PRODUCT_SERVICE_NAME}/
+      dockerfile : /Dockerfile
+    environment :
+      - DATABASE_HOSTNAME=${PRODUCT_SERVICE_DB_NAME}
+      - PRODUCT_SERVICE_SERVER_PORT=${PRODUCT_SERVICE_SERVER_PORT}
+    ports :
+      - ${PRODUCT_SERVICE_SERVER_PORT}:${PRODUCT_SERVICE_SERVER_PORT}
+    depends_on :
+       - ${PRODUCT_SERVICE_DB_NAME}
+#         condition: service_started
+
+  order-mariadb:
+    container_name: ${ORDER_SERVICE_DB_NAME}
+    image: mariadb:latest
+    environment :
+      - MYSQL_TCP_PORT=${ORDER_SERVICE_DB_PORT}
+      - MARIADB_ROOT_PASSWORD=test
+    ports:
+      - ${ORDER_SERVICE_DB_PORT}:${ORDER_SERVICE_DB_PORT}
+    expose:
+      - ${ORDER_SERVICE_DB_PORT}
+    volumes:
+      - ./order-mariadb-data:/var/lib/mysql
+
+  inventory-mariadb :
+    container_name : ${INVENTORY_SERVICE_DB_NAME}
+    image : mariadb:latest
+    environment :
+      - MYSQL_TCP_PORT=${INVENTORY_SERVICE_DB_PORT}
+      - MARIADB_ROOT_PASSWORD=test
+    ports :
+      - ${INVENTORY_SERVICE_DB_PORT}:${INVENTORY_SERVICE_DB_PORT}
+    expose :
+      - ${INVENTORY_SERVICE_DB_PORT}
+    volumes :
+      - ./inventory-mariadb-data:/var/lib/mysql
+
+  product-mariadb :
+    container_name : ${PRODUCT_SERVICE_DB_NAME}
+    image : mariadb:latest
+    environment :
+      - MYSQL_TCP_PORT=${PRODUCT_SERVICE_DB_PORT}
+      - MARIADB_ROOT_PASSWORD=test
+    ports :
+      - ${PRODUCT_SERVICE_DB_PORT}:${PRODUCT_SERVICE_DB_PORT}
+    expose :
+      - ${PRODUCT_SERVICE_DB_PORT}
+    volumes :
+      - ./product-mariadb-data:/var/lib/mysql
+
+  rabbitmq :
+    container_name: ${RABBITMQ_SERVICE_NAME}
+    image : rabbitmq:management
+    ports :
+      - ${RABBITMQ_SERVICE_DEFAULT_PORT}:${RABBITMQ_SERVICE_DEFAULT_PORT}
+      - ${RABBITMQ_SERVICE_ADMIN_PORT}:${RABBITMQ_SERVICE_ADMIN_PORT}
+
+#networks:
+#  order-mariadb-network:
+#    driver: bridge

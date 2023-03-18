@@ -14,11 +14,11 @@ public class RabbitMqProperties {
 
     /**
      * This will not work, the whole variable should be specified as @ConfigurationProperties(prefix) does not affect @Value
-     * @Value("${orderinventoryqueuename}")
+     * @Value("${ordernotificationqueuename}")
      */
-    private String orderinventoryQueueName;
+    private String orderNotificationQueueName;
 
-    private String orderInventoryExchangeName;
+    private String orderNotificationExchangeName;
 
     private String host;
 

@@ -8,7 +8,6 @@ services :
       dockerfile : /Dockerfile
     environment :
       - DATABASE_HOSTNAME=inventory-mariadb
-      - RABBITMQ_HOSTNAME=rabbitmq
       - INVENTORY_SERVICE_SERVER_PORT=37529
     ports :
       - "37529:37529"
@@ -24,10 +23,16 @@ services :
       - DATABASE_HOSTNAME=order-mariadb
       - RABBITMQ_HOSTNAME=rabbitmq
       - ORDER_SERVICE_SERVER_PORT=37528
+      - INVENTORY_SERVICE_HOSTNAME=inventory-service
+      - INVENTORY_SERVICE_PORT=37529
     ports :
       - "37528:37528"
+#    expose:
+#      - "5672:5672"
+#      - "15672:15672"
     restart: always
     depends_on :
+      - inventory-service
       - order-mariadb
       - rabbitmq
 
@@ -46,6 +51,21 @@ services :
     depends_on :
        - product-mariadb
 #         condition: service_started
+
+  notification-service :
+    container_name : notification-service
+    build :
+      context : ./notification-service/
+      dockerfile : /Dockerfile
+    environment :
+#      - DATABASE_HOSTNAME=inventory-mariadb
+      - RABBITMQ_HOSTNAME=rabbitmq
+      - NOTIFICATION_SERVICE_SERVER_PORT=37530
+    ports :
+      - "37530:37530"
+    depends_on :
+      - order-service
+      - rabbitmq
 
   order-mariadb:
     container_name: order_mariadb
@@ -87,6 +107,7 @@ services :
       - ./product-mariadb-data:/var/lib/mysql
 
   rabbitmq :
+    container_name : rabbitmq
     image : rabbitmq:management
     ports :
       - "5672:5672"
