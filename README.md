@@ -18,3 +18,11 @@ docker run --detach --name mariadb_3 --env MARIADB_ROOT_PASSWORD=test --env MYSQ
 
 RabbitMQ
 https://github.com/societe-generale/rabbitmq-advanced-spring-boot-starter
+
+<h3>Windows edit "/etc/hosts"</h3>
+```
+127.0.0.1 inventory-service
+127.0.0.1 order-service
+127.0.0.1 product-service
+127.0.0.1 notification-service
+```

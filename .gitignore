@@ -43,3 +43,4 @@ out/
 /product-mariadb-data/
 /order-mariadb-data/
 /notification-service/
+/grafana/
